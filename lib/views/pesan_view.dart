@@ -13,56 +13,74 @@ class _PesanViewState extends State<PesanView> {
   final Color accentBlue = const Color(0xFF3A6EA5);
   final Color softBlue = const Color(0xFFEAF2FB);
 
+  final List<Map<String, String>> historiPesanan = [
+    {
+      "nama": "Ushanka",
+      "gambar": "assets/images/ushanka.jpg",
+    },
+    {
+      "nama": "AK-47",
+      "gambar": "assets/images/ak47.jpg",
+    },
+    {
+      "nama": "Sukhoi SU-27",
+      "gambar": "assets/images/sukhoi_su35.jpg",
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: softBlue,
       appBar: AppBar(
-        title: const Text("Pesan"),
+        title: const Text("Histori Pesanan"),
         backgroundColor: primaryBlue,
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Center(
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.card_giftcard,
-                    size: 60,
+        child: ListView.builder(
+          itemCount: historiPesanan.length,
+          itemBuilder: (context, index) {
+            final item = historiPesanan[index];
+            return Card(
+              elevation: 5,
+              margin: const EdgeInsets.only(bottom: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(12),
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    item["gambar"]!,
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                title: Text(
+                  item["nama"]!,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                     color: primaryBlue,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Halaman Pesanan",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: primaryBlue,
-                    ),
+                ),
+                subtitle: Text(
+                  "Pesanan berhasil",
+                  style: TextStyle(
+                    color: accentBlue,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Kelola dan lihat pesanan di sini",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: accentBlue,
-                    ),
-                  ),
-                ],
+                ),
+                trailing: Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
       bottomNavigationBar: BottomNav(1),

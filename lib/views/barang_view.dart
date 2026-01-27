@@ -13,56 +13,77 @@ class _BarangViewState extends State<BarangView> {
   final Color accentBlue = const Color(0xFF3A6EA5);
   final Color softBlue = const Color(0xFFEAF2FB);
 
+  final List<Map<String, dynamic>> stokBarang = [
+    {
+      "nama": "Ushanka",
+      "stok": 12,
+      "gambar": "assets/images/ushanka.jpg",
+    },
+    {
+      "nama": "Sukhoi SU-35",
+      "stok": 3,
+      "gambar": "assets/images/sukhoi_su35.jpg",
+    },
+    {
+      "nama": "AK-47",
+      "stok": 8,
+      "gambar": "assets/images/ak47.jpg",
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: softBlue,
       appBar: AppBar(
-        title: const Text("Barang"),
+        title: const Text("Stok Barang"),
         backgroundColor: primaryBlue,
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Center(
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.inventory_2,
-                    size: 60,
+        child: ListView.builder(
+          itemCount: stokBarang.length,
+          itemBuilder: (context, index) {
+            final item = stokBarang[index];
+            return Card(
+              elevation: 5,
+              margin: const EdgeInsets.only(bottom: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(12),
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    item["gambar"],
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                title: Text(
+                  item["nama"],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                     color: primaryBlue,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Data Barang",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: primaryBlue,
-                    ),
+                ),
+                subtitle: Text(
+                  "Stok tersedia: ${item["stok"]}",
+                  style: TextStyle(
+                    color: accentBlue,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Kelola daftar barang di sini",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: accentBlue,
-                    ),
-                  ),
-                ],
+                ),
+                trailing: Icon(
+                  Icons.inventory_2,
+                  color: item["stok"] > 0 ? Colors.green : Colors.red,
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
       bottomNavigationBar: BottomNav(1),
