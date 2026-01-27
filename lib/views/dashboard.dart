@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toko_online/models/user_login.dart';
+import 'package:toko_online/widgets/bottom_nav.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
@@ -100,6 +101,7 @@ class _DashboardViewState extends State<DashboardView> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNav(0),
     );
   }
 }
