@@ -17,7 +17,7 @@ class BarangService {
       );
     }
 
-    var uri = Uri.parse(url.BaseUrl + "/admin/getbarang");
+    var uri = Uri.parse("${url.BaseUrl}/admin/getbarang");
 
     Map<String, String> headers = {
       "Authorization": "Bearer ${user.token}",

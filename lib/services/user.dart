@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class UserService {
   Future registerUser(data) async {
-    var uri = Uri.parse(url.BaseUrl + "/auth/register");
+    var uri = Uri.parse("${url.BaseUrl}/auth/register");
     var register = await http.post(uri, body: data);
     if (register.statusCode == 200) {
       var data = json.decode(register.body);
@@ -20,7 +20,7 @@ class UserService {
       } else {
         var message = '';
         for (String key in data["message"].keys) {
-          message += data["message"][key][0].toString() + '\n';
+          message += '${data["message"][key][0]}\n';
         }
         ResponseDataMap response = ResponseDataMap(
           status: false,
@@ -38,7 +38,7 @@ class UserService {
   }
 
   Future loginUser(data) async {
-    var uri = Uri.parse(url.BaseUrl + "/auth/login");
+    var uri = Uri.parse("${url.BaseUrl}/auth/login");
     var register = await http.post(uri, body: data);
     if (register.statusCode == 200) {
       var data = json.decode(register.body);

@@ -4,7 +4,7 @@ import 'package:toko_online/models/user_login.dart';
 class BottomNav extends StatefulWidget {
   int activePage;
 
-  BottomNav(this.activePage);
+  BottomNav(this.activePage, {super.key});
 
   @override
   State<BottomNav> createState() => _BottomNavState();
