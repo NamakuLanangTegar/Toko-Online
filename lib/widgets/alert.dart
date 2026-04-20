@@ -50,4 +50,30 @@ class AlertMessage {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+  Future<Map<String, dynamic>?> showAlertDialog(
+    BuildContext context) async {
+  return showDialog<Map<String, dynamic>>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text("Konfirmasi"),
+      content: const Text("Yakin ingin menghapus data?"),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(
+            context,
+            {"status": false},
+          ),
+          child: const Text("Batal"),
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(
+            context,
+            {"status": true},
+          ),
+          child: const Text("Hapus"),
+        ),
+      ],
+    ),
+  );
+}
 }

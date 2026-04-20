@@ -36,7 +36,7 @@ class UserService {
       return response;
     }
   }
-
+  
   Future loginUser(data) async {
     var uri = Uri.parse("${url.BaseUrl}/auth/login");
     var register = await http.post(uri, body: data);
