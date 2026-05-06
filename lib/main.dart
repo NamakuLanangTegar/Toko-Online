@@ -1,22 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:toko_online/views/barang_view.dart';
-import 'package:toko_online/views/dashboard.dart';
-import 'package:toko_online/views/login_view.dart';
-import 'package:toko_online/views/pesan_view.dart';
-import 'package:toko_online/views/register_user_view.dart';
+import 'package:provider/provider.dart';
+
+import 'package:toko_online/features/cart/providers/cartProvider.dart';
+
+import 'package:toko_online/features/product/views/barang_view.dart';
+import 'package:toko_online/features/admin/views/admin_dashboard_view.dart';
+import 'package:toko_online/features/user/views/user_dashboard_view.dart';
+import 'package:toko_online/features/user/views/profil_view.dart';
+import 'package:toko_online/features/auth/views/login_view.dart';
+import 'package:toko_online/features/order/views/pesan_view.dart';
+import 'package:toko_online/features/auth/views/register_user_view.dart';
+import 'package:toko_online/features/cart/views/cart_view.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/register',
-      routes: {
-      '/register': (context) => RegisterUserView(),
-      '/login': (context) => LoginView(),
-      '/dashboard': (context) => DashboardView(),
-      '/barang': (context) => BarangView(),
-      '/pesan': (context) => PesanView(),
-      },
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/login',
+        routes: {
+          '/register': (context) => const RegisterUserView(),
+          '/login': (context) => const LoginView(),
+          '/user_dashboard': (context) => const UserDashboardView(),
+          '/admin_dashboard': (context) => const AdminDashboardView(),
+          '/barang': (context) => const BarangView(),
+          '/cart': (context) => const CartView(),
+          '/pesan': (context) => const PesanView(),
+          '/profil': (context) => const ProfilView(),
+        },
+      ),
     ),
   );
 }

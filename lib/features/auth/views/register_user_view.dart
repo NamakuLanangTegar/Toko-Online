@@ -1,5 +1,5 @@
-import 'package:toko_online/services/user.dart';
-import 'package:toko_online/widgets/alert.dart';
+import 'package:toko_online/features/auth/services/user.dart';
+import 'package:toko_online/core/widgets/alert.dart';
 import 'package:flutter/material.dart';
 
 class RegisterUserView extends StatefulWidget {
@@ -19,7 +19,7 @@ class _RegisterUserViewState extends State<RegisterUserView> {
   TextEditingController address = TextEditingController();
   TextEditingController birthday = TextEditingController();
 
-  List roleChoice = ["admin", "kasir"];
+  List roleChoice = ["admin", "user"];
   String? role;
 
   final Color primaryBlue = const Color(0xFF4C7DAF);

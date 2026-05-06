@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:toko_online/services/user.dart';
-import 'package:toko_online/widgets/alert.dart';
+import 'package:toko_online/features/auth/services/user.dart';
+import 'package:toko_online/core/widgets/alert.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -148,11 +148,19 @@ class _LoginViewState extends State<LoginView> {
                               );
 
                               if (result.status == true) {
-                                Future.delayed(Duration(seconds: 2), () {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    '/dashboard',
-                                  );
+                                String role = result.data['user']['role'];
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  if (role == 'admin') {
+                                    Navigator.pushReplacementNamed(
+                                      context,
+                                      '/admin_dashboard',
+                                    );
+                                  } else {
+                                    Navigator.pushReplacementNamed(
+                                      context,
+                                      '/user_dashboard',
+                                    );
+                                  }
                                 });
                               }
                             }

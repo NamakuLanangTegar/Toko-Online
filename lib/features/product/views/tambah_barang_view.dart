@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:toko_online/models/barang_model.dart';
-import 'package:toko_online/services/barang_service.dart';
-import 'package:toko_online/widgets/alert.dart';
+import 'package:toko_online/features/product/models/barang_model.dart';
+import 'package:toko_online/features/product/services/barang_service.dart';
+import 'package:toko_online/core/widgets/alert.dart';
 
 class TambahBarangView extends StatefulWidget {
   final String title;
@@ -214,8 +214,7 @@ class _TambahBarangViewState extends State<TambahBarangView> {
 
                           if (result.status == true) {
                             AlertMessage().showAlert(context, result.message, true);
-                            Navigator.pop(context);
-                            Navigator.pushReplacementNamed(context, '/barang');
+                            Navigator.pop(context, true);
                           } else {
                             AlertMessage().showAlert(context, result.message, false);
                           }

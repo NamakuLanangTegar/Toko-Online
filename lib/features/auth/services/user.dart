@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:toko_online/models/response_data_map.dart';
-import 'package:toko_online/models/user_login.dart';
-import 'package:toko_online/services/url.dart' as url;
+import 'package:toko_online/core/models/response_data_map.dart';
+import 'package:toko_online/features/auth/models/user_login.dart';
+import 'package:toko_online/core/services/url.dart' as url;
 import 'package:http/http.dart' as http;
 
 class UserService {

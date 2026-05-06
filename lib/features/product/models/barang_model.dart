@@ -1,4 +1,4 @@
-import 'package:toko_online/services/url.dart' as url;
+import 'package:toko_online/core/services/url.dart' as url;
 
 class BarangModel {
   int? id;

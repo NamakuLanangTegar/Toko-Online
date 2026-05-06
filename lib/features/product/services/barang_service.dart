@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:toko_online/models/barang_model.dart';
-import 'package:toko_online/models/response_data_list.dart';
-import 'package:toko_online/models/user_login.dart';
-import 'package:toko_online/services/url.dart' as url;
+import 'package:toko_online/features/product/models/barang_model.dart';
+import 'package:toko_online/core/models/response_data_list.dart';
+import 'package:toko_online/features/auth/models/user_login.dart';
+import 'package:toko_online/core/services/url.dart' as url;
 
 class BarangService {
 
@@ -18,7 +18,9 @@ class BarangService {
       );
     }
 
-    var uri = Uri.parse("${url.BaseUrl}/admin/getbarang");
+    // Admin pakai /admin/getbarang, User pakai /user/getbarang
+    String endpoint = user.role == "admin" ? "admin/getbarang" : "user/getbarang";
+    var uri = Uri.parse("${url.BaseUrl}/$endpoint");
 
     Map<String, String> headers = {
       "Authorization": "Bearer ${user.token}",
@@ -65,7 +67,6 @@ class BarangService {
     );
   }
 
-  // pilih endpoint insert / update
   Uri uri;
   if (id == null) {
     uri = Uri.parse("${url.BaseUrl}/admin/insertbarang");
@@ -75,36 +76,31 @@ class BarangService {
 
   var requestMultipart = http.MultipartRequest("POST", uri);
 
-  /// ⭐⭐⭐ INI BAGIAN PALING PENTING ⭐⭐⭐
   requestMultipart.headers.addAll({
     "Authorization": "Bearer ${user.token}",
-    "Accept": "application/json", // WAJIB biar Laravel kirim JSON
+    "Accept": "application/json",
   });
 
-  /// FIELD TEXT
   requestMultipart.fields["nama_barang"] = request["nama_barang"];
   requestMultipart.fields["harga"] = request["harga"];
   requestMultipart.fields["stok"] = request["stok"];
   requestMultipart.fields["deskripsi"] = request["deskripsi"];
 
-  /// FIELD IMAGE
   if (image != null) {
     requestMultipart.files.add(
       await http.MultipartFile.fromPath(
-        "image", // HARUS sama dengan Postman!
+        "image",
         image.path,
       ),
     );
   }
 
-  /// SEND REQUEST
   var streamedResponse = await requestMultipart.send();
   var response = await http.Response.fromStream(streamedResponse);
 
   print("STATUS CODE : ${response.statusCode}");
   print("BODY RESPONSE : ${response.body}");
 
-  /// CEGAT kalau server kirim HTML
   if (!response.body.startsWith("{")) {
     return ResponseDataList(
       status: false,
